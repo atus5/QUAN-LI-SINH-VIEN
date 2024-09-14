@@ -4,23 +4,38 @@
  */
 package javaapplication27;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
  *
  * @author Admin
  */
-public class Student extends Person implements IPerson{
+public class Student extends Person implements IPerson {
 
     public static Scanner sc = new Scanner(System.in);
     private float gpa;
     private String major;
+    private double tuition;
+    boolean schoolarship;
 
-   
-    
+    public boolean isSchoolarship() {
+        return schoolarship;
+    }
+
+    public void setSchoolarship(boolean schoolarship) {
+        this.schoolarship = schoolarship;
+    }
+
+    public double getTuition() {
+        return tuition;
+    }
+
+    public void setTuition(double tuition) {
+        this.tuition = tuition;
+    }
 
     public Student() {
     }
@@ -43,27 +58,30 @@ public class Student extends Person implements IPerson{
 
     @Override
     public void displayInfo() {
+
         System.out.println(toString());
-        
     }
 
     @Override
     public String toString() {
-         return "Student{" +
-           "Name='" + fullName + '\'' +
-           ", ID='" + id + '\'' +
-           ", Date of Birth=" + dateOfBirth +
-           ", GPA=" + gpa +
-           ", Major='" + major + '\'' +
-           '}';
+        return "Student{"
+                + "Name='" + fullName + '\''
+                + ", ID='" + id + '\''
+                + ", Date of Birth=" + dateOfBirth
+                + ", GPA=" + gpa
+                + ", Major='" + major + '\''
+                + ", Tuition='" + tuition + '\''
+                + '}';
     }
 
     public void addStudent() {
-        
+
         System.out.println("Enter name: ");
         this.fullName = sc.nextLine();
+
         System.out.println("Enter ID: ");
         this.id = sc.nextLine();
+
         System.out.println("Enter Date: ");
         String date1 = sc.nextLine();
         SimpleDateFormat date2 = new SimpleDateFormat("dd/MM/yyyy");
@@ -78,8 +96,9 @@ public class Student extends Person implements IPerson{
         sc.nextLine();
         System.out.println("Enter major: ");
         this.major = sc.nextLine();
-        
-
+        System.out.println("Enter tuition: ");
+        this.tuition = sc.nextDouble();
+        sc.nextLine();
     }
 
 }

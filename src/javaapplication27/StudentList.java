@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,7 +23,7 @@ public class StudentList {
     public static Student student = new Student();
 
     public void addStudent(Student student) {
-        
+
         student.addStudent();
         stu.add(student);
     }
@@ -35,7 +36,13 @@ public class StudentList {
     }
 
     public void deleteStudentById(String id) {
-        stu.removeIf(student -> id.equals(student.getId()));
+        Iterator<Student> iter = stu.iterator();
+        while (iter.hasNext()) {
+            Student s = iter.next();
+            if (id.equals(s.getId())) {
+                iter.remove();
+            }
+        }
     }
 
     public Student findStudentByID(String id) {
@@ -51,19 +58,49 @@ public class StudentList {
     }
 
     public Student findTopStudent() {
-       Student topstudent = stu.get(0);
-        
+        Student topstudent = stu.get(0);
+
         for (Student student : stu) {
-            if(student.getGpa() > topstudent.getGpa()){
+            if (student.getGpa() > topstudent.getGpa()) {
                 topstudent = student;
-               
+
             }
         }
-            for (Student student : stu) {
-                if(topstudent.getGpa() == student.getGpa() && !topstudent.getId().equals(student.getId()))
+        for (Student student : stu) {
+            if (topstudent.getGpa() == student.getGpa() && !topstudent.getId().equals(student.getId())) {
                 System.out.println(student);
             }
-        
+        }
+
         return topstudent;
-}
+    }
+
+    public ArrayList<Student> findSchoolarshipStudent() {
+
+        Iterator<Student> iter = stu.iterator();
+        System.out.println("Da ap dung hoc bong");
+        while (iter.hasNext()) {
+            Student s = iter.next();
+            if (s.getGpa() >= 9) {
+                s.setSchoolarship(true);
+                
+                s.setTuition(s.getTuition() * 0.5);
+
+                System.out.println(s);
+
+            }
+        }
+
+        return stu;
+    }
+
+    public double caculateTuiitionOfAllStudents() {
+        double sum = 0;
+        Iterator<Student> iter = stu.iterator();
+        while (iter.hasNext()) {
+            Student s = iter.next();
+            sum += s.getTuition();
+        }
+        return sum;
+    }
 }
